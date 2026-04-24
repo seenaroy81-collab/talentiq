@@ -47,7 +47,10 @@ app.use(cors({
 
     // Normalize both for comparison (remove trailing slashes)
     const normalizedOrigin = origin.replace(/\/$/, "");
-    const isAllowed = allowedOrigins.some(o => o?.replace(/\/$/, "") === normalizedOrigin);
+    
+    // Check if origin matches allowed list OR ends with .vercel.app
+    const isAllowed = allowedOrigins.some(o => o?.replace(/\/$/, "") === normalizedOrigin) || 
+                      normalizedOrigin.endsWith(".vercel.app");
 
     if (isAllowed) {
       callback(null, true);

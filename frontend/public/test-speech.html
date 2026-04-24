@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Recognition Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: white;
+        }
+        h1 { color: #60a5fa; }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover { background: #2563eb; }
+        button.stop { background: #ef4444; }
+        button.stop:hover { background: #dc2626; }
+        #output {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 8px;
+            min-height: 100px;
+            margin: 20px 0;
+            white-space: pre-wrap;
+            font-size: 18px;
+        }
+        #logs {
+            background: #0f1729;
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .log { margin: 5px 0; }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        .info { color: #60a5fa; }
+        .warning { color: #f59e0b; }
+    </style>
+</head>
+<body>
+    <h1>🎤 Speech Recognition Test</h1>
+    <p>This page tests if Chrome's Web Speech API works on your system.</p>
+    
+    <div>
+        <button id="startBtn" onclick="startRecognition()">🎤 Start Recording</button>
+        <button id="stopBtn" class="stop" onclick="stopRecognition()" disabled>⏹️ Stop</button>
+    </div>
+
+    <h2>Your Speech:</h2>
+    <div id="output">Click "Start Recording" and speak...</div>
+
+    <h2>Console Logs:</h2>
+    <div id="logs"></div>
+
+    <script>
+        let recognition = null;
+        let isListening = false;
+        let transcript = '';
+
+        function log(message, type = 'info') {
+            const logsDiv = document.getElementById('logs');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = `log ${type}`;
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logsDiv.appendChild(logEntry);
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function initRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                log('❌ Speech Recognition NOT supported in this browser', 'error');
+                alert('Speech Recognition is not supported in this browser. Please use Chrome or Edge.');
+                return false;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                isListening = true;
+                log('✅ Recognition STARTED - Speak now!', 'success');
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = false;
+            };
+
+            recognition.onresult = (event) => {
+                log('🔊 Got result from Speech API!', 'success');
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const text = event.results[i][0].transcript;
+                    const isFinal = event.results[i].isFinal;
+                    
+                    if (isFinal) {
+                        transcript += text + ' ';
+                        log(`📝 FINAL: "${text}"`, 'success');
+                    } else {
+                        log(`⏳ INTERIM: "${text}"`, 'info');
+                    }
+                }
+                
+                document.getElementById('output').textContent = transcript || 'Listening...';
+            };
+
+            recognition.onerror = (event) => {
+                if (event.error === 'no-speech') {
+                    log('⚠️ No speech detected. Are you speaking into the microphone?', 'warning');
+                } else if (event.error === 'not-allowed') {
+                    log('❌ Microphone permission DENIED. Please allow in browser settings.', 'error');
+                } else if (event.error === 'audio-capture') {
+                    log('❌ No microphone found. Check your device.', 'error');
+                } else {
+                    log(`❌ Error: ${event.error}`, 'error');
+                }
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                log('⏹️ Recognition stopped', 'info');
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+            };
+
+            return true;
+        }
+
+        function startRecognition() {
+            log('🚀 Initializing Speech Recognition...', 'info');
+            
+            if (!recognition && !initRecognition()) {
+                return;
+            }
+
+            transcript = '';
+            document.getElementById('output').textContent = 'Listening... Speak now!';
+            
+            try {
+                recognition.start();
+                log('🎙️ Waiting for microphone permission...', 'info');
+            } catch (error) {
+                log(`❌ Failed to start: ${error.message}`, 'error');
+            }
+        }
+
+        function stopRecognition() {
+            if (recognition && isListening) {
+                recognition.stop();
+            }
+        }
+
+        // Initialize on load
+        window.onload = () => {
+            log('✅ Page loaded. Click "Start Recording" to test.', 'success');
+            
+            // Check for Speech Recognition support
+            if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+                log('✅ Speech Recognition API is available', 'success');
+            } else {
+                log('❌ Speech Recognition API NOT available', 'error');
+            }
+        };
+    </script>
+</body>
+</html>

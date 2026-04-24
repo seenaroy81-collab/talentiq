@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talent-IQ Project Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --dark: #0f172a;
+            --text: #334155;
+            --white: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--bg-gradient);
+            line-height: 1.6;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 10mm auto;
+            padding: 20mm;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            position: relative;
+            page-break-after: always;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        @media print {
+            body { background: none; }
+            .page { 
+                margin: 0; 
+                box-shadow: none; 
+                border-radius: 0;
+                width: 100%;
+                height: 100vh;
+            }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 28px;
+            color: var(--primary);
+            letter-spacing: -0.05em;
+        }
+
+        .page-tag {
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .hero-box {
+            background: var(--dark);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-box h3 { margin: 0; font-size: 28px; color: var(--primary-light); }
+        .hero-box p { margin-top: 10px; font-size: 18px; opacity: 0.9; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+        .card h4 {
+            margin: 0 0 10px 0;
+            color: var(--dark);
+            font-size: 18px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .footer-note {
+            position: absolute;
+            bottom: 20mm;
+            left: 20mm;
+            right: 20mm;
+            font-size: 12px;
+            color: #94a3b8;
+            text-align: center;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 10px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .stack-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stack-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .question-box {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .q { font-weight: 600; color: var(--dark); display: block; margin-bottom: 5px; }
+        .a { color: var(--text); display: block; font-size: 15px; }
+
+        .docker-lunchbox {
+            background: #f7fee7;
+            border: 2px dashed #84cc16;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .bi-arrow-right { display: inline-block; margin: 0 5px; }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: OVERVIEW -->
+    <div class="page">
+        <header>
+            <div class="logo">TALENT-IQ</div>
+            <div class="page-tag">01: THE BIG PICTURE</div>
+        </header>
+
+        <h1>The Future of <span class="highlight">Smarter</span> Hiring.</h1>
+        
+        <div class="hero-box">
+            <h3>What is Talent-IQ?</h3>
+            <p>Think of it as a <strong>Smart Recruiter Robot</strong>. Instead of humans spending hours reading resumes and doing boring interviews, Talent-IQ does it instantly using Super AI.</p>
+        </div>
+
+        <h2>Core Superpowers</h2>
+        <div class="grid">
+            <div class="card">
+                <h4>🤖 AI Interviewer</h4>
+                <p>A genius AI talks to candidates in real-time, asking tough technical questions and judging their answers like a Pro.</p>
+            </div>
+            <div class="card">
+                <h4>💻 Live Code Battle</h4>
+                <p>Candidates code in a real VSCode-like editor while the AI watches and provides hints if they get stuck.</p>
+            </div>
+            <div class="card">
+                <h4>📄 Smart Resume Reader</h4>
+                <p>Uploading a PDF? The system reads it in 1 second and knows exactly what the candidate is good at.</p>
+            </div>
+            <div class="card">
+                <h4>🎥 Secure Proctering</h4>
+                <p>Video, Mic, and Screen sharing ensure everything is fair. It even tracks if you're looking away!</p>
+            </div>
+        </div>
+
+        <h2>Why does it matter?</h2>
+        <p>Hiring is slow and expensive. Talent-IQ makes it fast, fair, and fun. It provides a detailed <strong>Score Card</strong> to the hiring manager so they only interview the top 1% of talent.</p>
+
+        <div class="footer-note">Generated for Talent-IQ Team Demo • Page 1 of 4</div>
+    </div>
+
+    <!-- PAGE 2: TECH STACK -->
+    <div class="page">
+        <header>
+            <div class="logo">TALENT-IQ</div>
+            <div class="page-tag">02: THE TECH BRAIN</div>
+        </header>
+
+        <h1>The Magic <span class="highlight">Engine</span>.</h1>
+        
+        <p>We built this using the most modern "Lego bricks" available in the tech world. Here is how the parts work together:</p>
+
+        <h2>The Front & Back</h2>
+        <div class="stack-item">
+            <div class="stack-icon">R</div>
+            <div>
+                <strong>React + Vite (The Face)</strong>
+                <p style="margin:0; font-size:14px; opacity:0.8;">Makes everything look beautiful and fast. Like a high-end luxury car dashboard.</p>
+            </div>
+        </div>
+        <div class="stack-item">
+            <div class="stack-icon">N</div>
+            <div>
+                <strong>Node.js + Express (The Brain)</strong>
+                <p style="margin:0; font-size:14px; opacity:0.8;">The traffic controller that handles all data and talks to the AI.</p>
+            </div>
+        </div>
+
+        <h2>The Memory Bank</h2>
+        <div class="stack-item">
+            <div class="stack-icon">M</div>
+            <div>
+                <strong>MongoDB (The Long-Term Memory)</strong>
+                <p style="margin:0; font-size:14px; opacity:0.8;">Where we store resumes, users, and every interview forever.</p>
+            </div>
+        </div>
+        <div class="stack-item">
+            <div class="stack-icon">⚡</div>
+            <div>
+                <strong>Redis (The Short-Term "Sticky Note")</strong>
+                <p style="margin:0; font-size:14px; opacity:0.8;">Ultra-fast memory for things we need right now (like interview states).</p>
+            </div>
+        </div>
+
+        <h2>The Genius (AI)</h2>
+        <p>We use <span class="highlight">Groq</span>—the world's fastest AI engine—to run <span class="highlight">Llama 3.3 (70B)</span>. This is many times smarter than a basic chatbot; it understands complex code and technical nuance.</p>
+
+        <div class="card" style="background: #eef2ff; border-color: #c7d2fe;">
+            <h4>Did you know?</h4>
+            <p>Our system uses <strong>Whisper 3</strong> to "listen" to the candidate's voice and turn it into text so the AI can understand it!</p>
+        </div>
+
+        <div class="footer-note">Generated for Talent-IQ Team Demo • Page 2 of 4</div>
+    </div>
+
+    <!-- PAGE 3: DOCKER & TOOLS -->
+    <div class="page">
+        <header>
+            <div class="logo">TALENT-IQ</div>
+            <div class="page-tag">03: THE DELIVERY</div>
+        </header>
+
+        <h1>Ready <span class="highlight">Anywhere</span>.</h1>
+        
+        <h2>The Docker Lunchbox 🍱</h2>
+        <p>Imagine you made a perfect sandwich. If you just tell a friend the recipe, they might use bad bread. But if you put the whole sandwich in a <strong>Lunchbox</strong>, it stays perfect!</p>
+
+        <div class="docker-lunchbox">
+            <h3 style="margin:0; color: #4d7c0f;">Docker = The Ultimate Lunchbox</h3>
+            <p style="margin:10px 0 0 0; color: #65a30d;">It packs the Code + Database + Server into one box that runs EXACTLY the same on every computer.</p>
+        </div>
+
+        <h2>Why do we use it?</h2>
+        <ul>
+            <li><strong>No more "It works on my machine"</strong>: If it works inside Docker, it works everywhere.</li>
+            <li><strong>Instant Setup</strong>: Type one command, and the whole system (Database, Redis, etc.) starts up automatically.</li>
+            <li><strong>Super Safe</strong>: Each part of the app lives in its own little world, isolated from the others.</li>
+        </ul>
+
+        <h2>Other Tools we used</h2>
+        <div class="grid">
+            <div class="card">
+                <h4>🛡️ Clerk</h4>
+                <p>Handles "Who can log in" so we don't have to build security from scratch.</p>
+            </div>
+            <div class="card">
+                <h4>☁️ Cloudinary</h4>
+                <p>The "Cloud Garage" where all resume PDFs are safely stored.</p>
+            </div>
+            <div class="card">
+                <h4>📨 Inngest</h4>
+                <p>The "Postman" that sends email reports to the hiring manager after the interview.</p>
+            </div>
+            <div class="card">
+                <h4>📺 Stream</h4>
+                <p>The tech that powers 4K video calls and screen sharing.</p>
+            </div>
+        </div>
+
+        <div class="footer-note">Generated for Talent-IQ Team Demo • Page 3 of 4</div>
+    </div>
+
+    <!-- PAGE 4: VIVA PREP -->
+    <div class="page">
+        <header>
+            <div class="logo">TALENT-IQ</div>
+            <div class="page-tag">04: VIVA SECRETS</div>
+        </header>
+
+        <h1>Demo <span class="highlight">Mastery</span>.</h1>
+        
+        <p>Preparing for questions from your team or teachers? Here is the cheat sheet!</p>
+
+        <div class="question-box">
+            <span class="q">Q1: Why use Redis when you already have MongoDB?</span>
+            <span class="a">A: MongoDB is great for storing big data, but Redis is 100x faster because it lives in "RAM". We use it for things that change fast, like interview status.</span>
+        </div>
+
+        <div class="question-box">
+            <span class="q">Q2: How does the AI know if my code is correct?</span>
+            <span class="a">A: We send your code to Llama 3.3. The AI understands the problem logic and explains exactly what's wrong—it's like having a Senior Engineer reviewing you!</span>
+        </div>
+
+        <div class="question-box">
+            <span class="q">Q3: What happens if the internet cuts out?</span>
+            <span class="a">A: Thanks to <strong>TanStack Query</strong>, the app handles "lag" gracefully, and we save progress in MongoDB constantly so nothing is lost.</span>
+        </div>
+
+        <div class="question-box">
+            <span class="q">Q4: Why Groq? Why not OpenAI?</span>
+            <span class="a">A: Groq is incredibly fast. It makes the AI response feel instant (sub-second), which is crucial for a real-time interview experience.</span>
+        </div>
+
+        <h2>Demo Strategy 💡</h2>
+        <ol>
+            <li><strong>Login</strong>: Show how easy it is with Clerk.</li>
+            <li><strong>Dashboard</strong>: Show the "Live Stats" of past candidates.</li>
+            <li><strong>The Interview</strong>: Upload a resume, start the AI chat, and talk to it!</li>
+            <li><strong>Coding</strong>: Write some bad code, and let the AI give you a hint.</li>
+            <li><strong>Completion</strong>: Show the final report generated.</li>
+        </ol>
+
+        <div class="footer-note">Generated for Talent-IQ Team Demo • Page 4 of 4</div>
+    </div>
+
+</body>
+</html>

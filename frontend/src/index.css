@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@property --radialprogress {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+@plugin "daisyui" {
+  themes: all;
+}
+
+/* Add cursor pointer to buttons by default - this is coming from tailwind docs */
+@layer base {
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@keyframes gradient-x {
+
+  0%,
+  100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 5s ease infinite;
+  background-size: 200% auto;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* WebGazer Custom Styles - Match App Theme */
+#webgazerVideoContainer {
+  position: fixed !important;
+  top: 24px !important;
+  left: 24px !important;
+  width: 280px !important;
+  height: 210px !important;
+  border-radius: 24px !important;
+  /* Match rounded-3xl */
+  overflow: hidden !important;
+  z-index: 1000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(16px) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.3s ease !important;
+}
+
+
+#webgazerVideoFeed {
+  /* Ensure the video fits nicely */
+  /* width: 100% !important;
+    height: 100% !important; */
+}
+
+#webgazerFaceOverlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  border: none !important;
+  /* We might want to customize the face feedback box color via JS or here if possible, 
+       but webgazer draws on canvas. We can just style the container. */
+}
+
+#webgazerGazeDot {
+  position: fixed;
+  /* Fixed to viewport */
+  z-index: 99999;
+  pointer-events: none;
+  /* Let clicks pass through */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.8) 0%, rgba(74, 222, 128, 0) 70%);
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+  transform: translate(-50%, -50%);
+  /* Center on coordinates */
+  transition: all 0.1s ease-out;
+  /* Smooth movement */
+}

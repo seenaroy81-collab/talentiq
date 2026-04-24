@@ -43,13 +43,22 @@ console.log("CORS Origins Allowed:", allowedOrigins);
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl)
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin) return callback(null, true);
+
+    // Normalize both for comparison (remove trailing slashes)
+    const normalizedOrigin = origin.replace(/\/$/, "");
+    const isAllowed = allowedOrigins.some(o => o?.replace(/\/$/, "") === normalizedOrigin);
+
+    if (isAllowed) {
       callback(null, true);
     } else {
+      console.warn(`⚠️ CORS blocked for origin: ${origin}`);
       callback(new Error(`CORS blocked for origin: ${origin}`));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 }));
 app.use(clerkMiddleware()); // this adds auth field to request object: req.auth()
 
